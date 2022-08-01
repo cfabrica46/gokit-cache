@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+    redis:
+        image: redis
+        ports:
+            - "6378:6379"
+
+    token-app:
+        build: .
+        restart: always
+        environment:
+            - PORT=9090
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
+        depends_on:
+            - redis
+        ports:
+            - "9090:9090"
+
+networks:
+    default:
+        name: gokit-crud_network
+        driver: bridge
