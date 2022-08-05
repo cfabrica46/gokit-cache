@@ -9,15 +9,6 @@ import (
 	"github.com/google/uuid"
 )
 
-const (
-	lifeOfToken int = 10
-)
-
-var (
-	ErrUnexpectedSigningMethod = errors.New("unexpected signing method")
-	ErrClaims                  = errors.New("error to claims")
-)
-
 type Service interface {
 	GenerateToken(int, string, string, []byte) string
 	ExtractToken(string, []byte) (int, string, string, error)
@@ -29,6 +20,15 @@ type Service interface {
 type service struct {
 	DB *redis.Client
 }
+
+const (
+	lifeOfToken int = 10
+)
+
+var (
+	ErrUnexpectedSigningMethod = errors.New("unexpected signing method")
+	ErrClaims                  = errors.New("error to claims")
+)
 
 // GetService ...
 func GetService(db *redis.Client) *service {
