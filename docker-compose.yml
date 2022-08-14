@@ -5,7 +5,7 @@ services:
         ports:
             - "6378:6379"
 
-    token-app:
+    cache:
         build: .
         restart: always
         environment:

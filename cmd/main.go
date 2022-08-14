@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	"cache/cmd/config"
 	"cache/internal/endpoint"
 	"cache/internal/entity"
 	"cache/internal/service"
@@ -13,12 +14,13 @@ import (
 	httptransport "github.com/go-kit/kit/transport/http"
 	"github.com/go-redis/redis"
 	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	if err := godotenv.Load(".env"); err != nil {
-		log.Println(err)
+	if !config.VerifyIsDockerRun() {
+		if err := config.LoadEnv(); err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	options := &redis.Options{
