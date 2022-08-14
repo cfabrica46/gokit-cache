@@ -12,7 +12,7 @@ const (
 func VerifyIsDockerRun() (check bool) {
 	isDocker := os.Getenv("DOCKER")
 
-	return isDocker != ""
+	return isDocker == "true"
 }
 
 func LoadEnv() (err error) {

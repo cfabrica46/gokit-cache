@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -22,6 +23,8 @@ func main() {
 			log.Fatal(err)
 		}
 	}
+
+	fmt.Println(os.Getenv("REDIS_HOST"))
 
 	options := &redis.Options{
 		Addr:     os.Getenv("REDIS_HOST") + ":" + os.Getenv("REDIS_PORT"),
